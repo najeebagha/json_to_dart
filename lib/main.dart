@@ -14,7 +14,7 @@ void main() {
   } else if (Platform.isWindows) {
     runApp(const MyApp());
     doWhenWindowReady(() {
-      const initialSize = Size(360, 695);
+      const initialSize = Size(600, 695);
       appWindow.minSize = initialSize;
       appWindow.size = initialSize;
       appWindow.alignment = Alignment.topRight;

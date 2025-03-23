@@ -5,7 +5,7 @@ import 'my_text.dart';
 
 // ignore: must_be_immutable
 class MyAppBar extends StatelessWidget {
-  String screenName;
+  Widget screenName;
   MyAppBar({super.key, required this.screenName});
 
   @override
@@ -23,7 +23,9 @@ class MyAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(width: 1), //this just Empty Widget
-          MyText(screenName),
+
+          screenName,
+
           SizedBox(width: 1),
         ],
       ),

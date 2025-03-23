@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:json_to_agha/src/utils/widgets/my_container.dart';
 import 'package:json_to_agha/src/utils/widgets/my_text.dart';
 import 'package:json_to_agha/src/utils/widgets/text_feild.dart';
 import 'package:json_to_dart/model_generator.dart';
@@ -35,7 +36,42 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: MySizes.appBarSize(context),
-        child: MyAppBar(screenName: 'Json to Dart by Najeeb Agha'),
+        child: MyAppBar(
+          screenName: InkWell(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return Dialog(
+                    child: MyContainer(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 170, 215, 250),
+                          const Color.fromARGB(255, 216, 215, 215),
+                        ],
+                      ),
+                      widthP: 80,
+                      heightP: 60,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          MyText('I am Created This Windows App'),
+                          MyText('Just For those Where Internet '),
+                          MyText('Is Very Weak Like Mine '),
+                          MyText('I Am Just Najeeb Agha'),
+                          MyText('From Pakistan'),
+                          MyText('Just Follow My GitHub Account'),
+                          MyText('Github.com/najeebagha'),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+            child: MyText('Json to Dart by Najeeb Agha'),
+          ),
+        ),
       ),
       body: Container(
         width: widthp * 100,
@@ -57,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                if (!isGenerated) Text('  Set Private Fields'),
+                if (!isGenerated) MyText('  Set Private Fields'),
 
                 if (!isGenerated)
                   Checkbox(
@@ -68,6 +104,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     },
                   ),
+                SizedBox(width: 10),
+                SizedBox(width: 10),
                 isGenerated
                     ? MaterialButton(
                       color: Colors.blueGrey,
