@@ -16,9 +16,8 @@ dependencies:
 
 
   cupertino_icons: ^1.0.8
-  flutter_bloc:
   clipboard:
-  sizer:
+  flutter_bloc:
   auto_size_text:
   json_to_dart:
     git: 
@@ -39,14 +38,7 @@ flutter:
   uses-material-design: true
 
 
-  assets:
-    - assets/images/
-    - assets/fonts/
-  
-  fonts:
-    - family: JameelFaimly  #fontFamily: in TextStyle
-      fonts:
-        - asset: assets/fonts/jameel_agha.ttf
+
   # example:
   # fonts:
   #   - family: Schyler

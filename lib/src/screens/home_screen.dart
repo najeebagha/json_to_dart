@@ -116,24 +116,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(width: 10),
                 isGenerated
                     ? MaterialButton(
-                      color: Colors.blueGrey,
-                      onPressed:
-                          isCopyed
-                              ? null
-                              : () async {
-                                await FlutterClipboard.copy(dartC.text);
-                                if (isCopyed = false) {
-                                  setState(() {
-                                    isCopyed = true;
-                                  });
-                                }
-                              },
-                      child: MyText('Copy'),
+                      color: isCopyed ? Colors.blue : Colors.blueGrey,
+                      onPressed: () async {
+                        await FlutterClipboard.copy(dartC.text);
+                        if (isCopyed = false) {
+                          setState(() {
+                            isCopyed = true;
+                          });
+                        }
+                      },
+                      child: isCopyed ? MyText('Copyed') : MyText('Copy'),
                     )
                     : MaterialButton(
                       onPressed: () {
                         setState(() {
-                          nameC.clear();
                           jsonC.clear();
                           dartC.clear();
                         });
@@ -147,6 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         nameC.clear();
                         jsonC.clear();
                         dartC.clear();
+                        isCopyed = false;
                         isGenerated = !isGenerated;
                       });
                     },
