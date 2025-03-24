@@ -55,11 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          MyText('I am Created This Windows App'),
+                          MyText('I  Created This Windows App'),
                           MyText('Just For those Where Internet '),
                           MyText('Is Very Weak Like Mine '),
-                          MyText('I Am Just Najeeb Agha'),
-                          MyText('From Pakistan'),
+                          MyText('I Am  Najeeb Agha'),
+                          MyText('From Pakistan Quetta '),
                           MyText('Just Follow My GitHub Account'),
                           MyText('Github.com/najeebagha'),
                         ],
@@ -80,7 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
         alignment: Alignment.center,
         child: Column(
           children: [
-            MyTextFeild(hintText: 'Class Name', controller: nameC),
+            SizedBox(
+              width: widthp * 50,
+              child: MyTextFeild(hintText: 'Class Name', controller: nameC),
+            ),
             isGenerated
                 ? SingleChildScrollView(
                   child: MyTextFeild(controller: dartC, maxLines: 16),
@@ -88,22 +91,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 : MyTextFeild(
                   hintText: 'Json ',
                   controller: jsonC,
-                  maxLines: 10,
+                  maxLines: 16,
                 ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (!isGenerated) MyText('  Set Private Fields'),
-
                 if (!isGenerated)
-                  Checkbox(
-                    value: isFrivate,
-                    onChanged: (v) {
-                      setState(() {
-                        isFrivate = !isFrivate;
-                      });
-                    },
+                  Row(
+                    children: [
+                      MyText('  Set Private Fields'),
+                      Checkbox(
+                        value: isFrivate,
+                        onChanged: (v) {
+                          setState(() {
+                            isFrivate = !isFrivate;
+                          });
+                        },
+                      ),
+                    ],
                   ),
+
                 SizedBox(width: 10),
                 SizedBox(width: 10),
                 isGenerated
@@ -154,25 +162,66 @@ class _HomeScreenState extends State<HomeScreen> {
                     isGenerated
                         ? null
                         : () {
-                          setState(() {
-                            try {
-                              classGenerator = ModelGenerator(
-                                nameC.text,
-                                isFrivate,
-                              );
-                              dartCode = classGenerator.generateDartClasses(
-                                jsonC.text,
-                              );
-                              dartC.text = dartCode!.code;
-                            } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(e.toString())),
-                              );
-                            }
-                            if (dartC.text.isNotEmpty) {
-                              isGenerated = !isGenerated;
-                            }
-                          });
+                          if (nameC.text.isNotEmpty & jsonC.text.isNotEmpty) {
+                            setState(() {
+                              try {
+                                classGenerator = ModelGenerator(
+                                  nameC.text,
+                                  isFrivate,
+                                );
+                                dartCode = classGenerator.generateDartClasses(
+                                  jsonC.text,
+                                );
+                                dartC.text = dartCode!.code;
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(e.toString())),
+                                );
+                              }
+                              if (dartC.text.isNotEmpty) {
+                                isGenerated = !isGenerated;
+                              }
+                            });
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  child: MyContainer(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color.fromARGB(255, 170, 215, 250),
+                                        const Color.fromARGB(
+                                          255,
+                                          216,
+                                          215,
+                                          215,
+                                        ),
+                                      ],
+                                    ),
+                                    widthP: 80,
+                                    heightP: 20,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        if (nameC.text.isEmpty)
+                                          MyText(
+                                            fontSize: 34,
+                                            'The Class Name  Should Not be Empty',
+                                          ),
+                                        if (jsonC.text.isEmpty)
+                                          MyText(
+                                            fontSize: 34,
+                                            'The Json Should  Not be Empty',
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }
                         },
               ),
           ],
